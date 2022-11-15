@@ -25,7 +25,7 @@ while (programma)
             RicercaCliente();
             break;
         case 3:
-            
+            EffettuaPrestito();
             break;
         case 4:
            
@@ -41,13 +41,13 @@ while (programma)
 
 void RegistraNuovoCliente()
 {
-    Console.WriteLine("Inserisci il nome cliente");
+    Console.Write("Inserisci il nome cliente: ");
     string nomeCliente = Console.ReadLine();
-    Console.WriteLine("Inserisci il cognome cliente");
+    Console.Write("Inserisci il cognome cliente: ");
     string cognomeCliente = Console.ReadLine();
-    Console.WriteLine("Inserisci il codice fiscale del cliente");
+    Console.Write("Inserisci il codice fiscale del cliente: ");
     string codiceFiscaleCliente = Console.ReadLine();
-    Console.WriteLine("Inserisci lo stipendio cliente");
+    Console.Write("Inserisci lo stipendio cliente: ");
     int stipendioCliente = Convert.ToInt32(Console.ReadLine());
 
     if (banca.NuovoCliente(nomeCliente, cognomeCliente, codiceFiscaleCliente, stipendioCliente))
@@ -125,5 +125,42 @@ void ModificaCliente( string codiceFiscaleCliente)
     if (Stipendio > 0)
     {
         clienteDaModificare.Stipendio = Stipendio;
+    }
+}
+void EffettuaPrestito()
+{
+    Console.Write("Inserire codice fiscale cliente: ");
+    string codiceFiscaleCliente = Console.ReadLine();
+
+    Cliente clientePrestito = banca.RicercaCliente(codiceFiscaleCliente);
+    if (clientePrestito == null)
+    {
+        Console.WriteLine("Cliente non registrato!");
+        return;
+    }
+    Console.WriteLine("Cliente trovato");
+    Console.WriteLine();
+    Console.Write("Digitare ID prestito: ");
+    int idPrestito = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Digitare l'ammontare totale del prestito: ");
+    int ammontarePrestito = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Digitare la rata del prestito: ");
+    float rataPrestito = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Digitare la data di fine prestito (dd/mm/yyyy)");
+    DateTime dataFinePrestito = DateTime.Parse(Console.ReadLine());
+
+    Prestito nuovoPrestito = new Prestito(idPrestito, clientePrestito.Nome, ammontarePrestito, rataPrestito, dataFinePrestito);
+
+    if (banca.AggiungiPrestito(nuovoPrestito))
+    {
+        Console.WriteLine();
+        Console.WriteLine("Nuovo prestito registrato correttamente!");
+        Console.WriteLine();
+    }
+    else
+    {
+        Console.WriteLine();
+        Console.WriteLine("Errore di compilazione!");
+        Console.WriteLine();
     }
 }

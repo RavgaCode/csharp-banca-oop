@@ -8,13 +8,13 @@ public class Prestito
     public DateTime DataInizio { get; set; }
     public DateTime DataFine  { get; set; }
 
-    public Prestito (int iD, string intestatario, int ammontare, float rata, DateTime dataInizio, DateTime dataFine)
+    public Prestito (int iD, string intestatario, int ammontare, float rata,  DateTime dataFine)
     {
         ID = iD;
         Intestatario = intestatario;
         Ammontare = ammontare;
         Rata = rata;
-        DataInizio = dataInizio;
+        DataInizio = DateTime.Now;
         DataFine = dataFine;
     }
 }

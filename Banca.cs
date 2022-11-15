@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 public class Banca
 {
+    private Prestito nuovoPrestito;
+
     public string Nome { get; set; }
     public List<Cliente> ListaClienti { get; set; }
     public List<Prestito> ListaPrestiti { get; set; }
@@ -41,5 +43,26 @@ public class Banca
         }
 
         return null;
+    }
+    public bool AggiungiPrestito(Prestito nuovoPresito)
+    {
+        if (
+            nuovoPrestito.ID == null || nuovoPrestito.ID < 0 ||
+            nuovoPrestito.Intestatario == null ||
+            nuovoPrestito.Ammontare == null || nuovoPrestito.Ammontare < 0 ||
+            nuovoPrestito.Rata == null || nuovoPrestito.Rata < 0 ||
+            nuovoPrestito.DataFine == null
+            )
+        {
+            return false;
+        }
+        else
+        {
+            
+                ListaPrestiti.Add(nuovoPrestito);
+                return true;
+           
+        }
+        return false;
     }
 }
